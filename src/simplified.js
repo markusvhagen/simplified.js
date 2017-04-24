@@ -37,3 +37,33 @@ function _hide(el) {
         return true;
     }
 }
+
+function _fadeIn(el, time) {
+    let elOpacity = 0;
+    let loopRounds = Math.ceil(time/16);
+    let numberLoopRoundsNow = 1;
+    el.style.opacity = elOpacity;
+    el.style.display = "block";
+    var fadeInInterval = setInterval(function() {
+        if (numberLoopRoundsNow >= loopRounds) {
+            clearInterval(fadeInInterval);
+        }
+        el.style.opacity = numberLoopRoundsNow/loopRounds;
+        numberLoopRoundsNow++;
+    }, 16);
+}
+
+function _fadeOut(el, time) {
+    const loopRoundsTotal = Math.ceil(time/16);
+    let elOpacity = 1;
+    let loopRoundsNow = Math.ceil(time/16);
+    el.style.opacity = 1;
+    var fadeOutInterval = setInterval(function() {
+        if (loopRoundsTotal <= 0) {
+            clearInterval(fadeOutInterval);
+            el.style.display = "none";
+        }
+        el.style.opacity = loopRoundsNow/loopRoundsTotal;
+        loopRoundsNow--;
+    }, 16);
+}
