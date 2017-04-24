@@ -1,7 +1,5 @@
 # simplified.js
 A javscript library which aims to simplify some javascript functions.
 
-## Planned functions
-+ fadein
-+ scroll to
-
+## Functions in simplified right now
+_getId, _getElements, _show, _hide
