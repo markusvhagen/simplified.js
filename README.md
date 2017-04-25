@@ -2,7 +2,7 @@
 A javscript library which aims to simplify some javascript functions.
 
 ## How to install
-It is important that you important minified.js before importing your own script. 
+It is important that you important simplified.js before importing your own script. 
 ```
 <script src="https://raw.githubusercontent.com/markusvhagen/simplified.js/master/src/simplified.js"></script>
 <script src="myScript.js"></script>
@@ -10,4 +10,4 @@ It is important that you important minified.js before importing your own script.
 If you want, you can also download the javascript by going to [the raw source code](https://raw.githubusercontent.com/markusvhagen/simplified.js/master/src/simplified.js) and clicking `CTRL + S`. 
 
 ## How to use simplified.js
-A wiki is planned in the future, but finishing minified.js is the main goal right now.
+A wiki is planned in the future, but finishing simplified.js is the main goal right now.
