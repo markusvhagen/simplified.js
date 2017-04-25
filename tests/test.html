@@ -5,21 +5,30 @@
         <title>Testing testing</title>
 
         <style>
+            body {
+                height: 3000px;
+            }
+
             #test {
                 display: none;
             }
+
+            #test_scroll {
+                position: fixed;
+            }
+
         </style>
 
     </head>
     <body>
 
         <div id="test">
-            <p>I am hidden</p>
+            <p>Paragraph</p>
         </div>
 
         <p id="show">Fade paragraph in</p>
         <p id="hide">Fade paragraph out</p>
-
+        <p id="test_scroll">Scroll to the top</p>
 
         <script src="../src/simplified.js"></script>
         <script src="test.js"></script>

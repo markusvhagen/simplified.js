@@ -1,7 +1,36 @@
+/*
+    Authors: Markus Valås Hagen & Jørgen Jensvold
+    Licensed under the MIT license.
+*/
+
 "use strict";
 
 /* All functions have "_" in front of it. This is to prevent it from
 overwriting any other functions in another file */
+
+/* === DEFINITIONS === */
+let linearSpeed = {
+    default: 400,
+    slow: 800,
+    fast: 200,
+    decideSpeed: function (stringInput) {
+        if (stringInput === undefined) {
+            return (this.default);
+        }
+        // Only return if number is integer.
+        else if (!Number.isInteger(stringInput)) {
+            if (stringInput == "slow") {
+                return (this.slow);
+            }
+            else if (stringInput == "fast") {
+                return (this.fast);
+            }
+        }
+        else {
+            return (stringInput);
+        }
+    }
+};
 
 /* ==== SELECTORS ==== */
 
@@ -38,9 +67,10 @@ function _hide(el) {
     }
 }
 
-function _fadeIn(el, time) {
-    let elOpacity = 0;
+function _fadeIn(el, timeInput) {
+    let time = linearSpeed.decideSpeed(timeInput);
     let loopRounds = Math.ceil(time/16);
+    let elOpacity = 0;
     let numberLoopRoundsNow = 1;
     el.style.opacity = elOpacity;
     el.style.display = "block";
@@ -53,8 +83,9 @@ function _fadeIn(el, time) {
     }, 16);
 }
 
-function _fadeOut(el, time) {
-    const loopRoundsTotal = Math.ceil(time/16);
+function _fadeOut(el, timeInput) {
+    let time = linearSpeed.decideSpeed(timeInput);
+    let loopRoundsTotal = Math.ceil(time/16);
     let elOpacity = 1;
     let loopRoundsNow = Math.ceil(time/16);
     el.style.opacity = 1;
@@ -66,4 +97,26 @@ function _fadeOut(el, time) {
         el.style.opacity = loopRoundsNow/loopRoundsTotal;
         loopRoundsNow--;
     }, 16);
+}
+
+function _scrollToTop(timeInput) {
+    let time = linearSpeed.decideSpeed(timeInput);
+    let pos = window.scrollY;
+    if (pos == 0) {
+        return true;
+    }
+    else {
+        let loopRoundsTotal = Math.ceil(time/16);
+        let pixelMovePerLoop = Math.ceil(pos/loopRoundsTotal);
+        let loopRoundsNow = 0;
+        var scrollTopInterval = setInterval(function() {
+            if (loopRoundsNow >= loopRoundsTotal) {
+                clearInterval(scrollTopInterval);
+                return true;
+            }
+            pos -= pixelMovePerLoop;
+            window.scrollTo(0, pos);
+            loopRoundsNow++;
+        }, 16);
+    }
 }
