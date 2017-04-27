@@ -111,7 +111,7 @@ function _scrollToTop(timeInput) {
         let pixelMovePerLoop = Math.ceil(scrollPos/loopRoundsTotal);
         let loopRoundsNow = 0;
         var scrollTopInterval = setInterval(function() {
-            if (loopRoundsNow >= loopRoundsTotal) {
+            if (document.body.scrollTop === 0) {
                 clearInterval(scrollTopInterval);
                 return true;
             }
