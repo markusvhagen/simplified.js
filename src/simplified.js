@@ -46,7 +46,7 @@ function _getElements(el) {
 }
 
 
-/* ==== CSS ==== */
+/* ==== METHODS & EVENTS ==== */
 
 function _show(el) {
     if (el.style.display == "block") {
@@ -54,7 +54,6 @@ function _show(el) {
     }
     else {
         el.style.display = "block";
-        return true;
     }
 }
 
@@ -64,8 +63,16 @@ function _hide(el) {
     }
     else {
         el.style.display = "none";
-        return true;
     }
+}
+
+function _getCSSValue(el, property) {
+    let propVal = window.getComputedStyle(el).getPropertyValue(property);
+    return propVal;
+}
+
+function _setCSSValue(el, property, val) {
+    el.style[property] = val;  // Does not work when trying to access with el.style.property. Therefore el.style[property].
 }
 
 function _fadeIn(el, timeInput) {
@@ -113,7 +120,6 @@ function _scrollToTop(timeInput) {
         var scrollTopInterval = setInterval(function() {
             if (document.body.scrollTop === 0) {
                 clearInterval(scrollTopInterval);
-                return true;
             }
             scrollPos -= pixelMovePerLoop;
             window.scrollTo(0, scrollPos);
@@ -135,7 +141,6 @@ function _scrollTo(el, timeInput) {
         var scrollToElementInterval = setInterval(function() {
             if (loopRoundsNow >= loopRoundsTotal) {
                 clearInterval(scrollToElementInterval);
-                return true;
             }
             scrollPos -= pixelMovePerLoop;
             window.scrollTo(0, scrollPos);
@@ -148,7 +153,6 @@ function _scrollTo(el, timeInput) {
         var scrollToElementInterval = setInterval(function() {
             if (loopRoundsNow >= loopRoundsTotal) {
                 clearInterval(scrollToElementInterval);
-                return true;
             }
             scrollPos += pixelMovePerLoop;
             window.scrollTo(0, scrollPos);
