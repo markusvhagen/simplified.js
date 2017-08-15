@@ -4,6 +4,8 @@ var hide = _getId("hide");
 var scrollTop = _getId("test_scroll");
 var scrollToHere = _getId("test_scrollTo");
 var styleBtn = _getId("styleBtn");
+var counter = _getId("counter");
+var activateCounter = _getId("activate_counter");
 
 show.onclick = function() {
     _fadeIn(test, 2000);
@@ -19,4 +21,9 @@ scrollTop.onclick = function() {
 
 styleBtn.onclick = function() {
     _setCSSValue(hide, "color", "yellow");
+    _setContent(hide, "I like fish :D");
+}
+
+activateCounter.onclick = function() {
+    _dynamicCounter(counter, 0, 50, "slow");
 }
