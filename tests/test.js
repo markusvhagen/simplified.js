@@ -1,11 +1,11 @@
-var show = _getId("show");
-var test = _getId("test"); // NOT USE THIS TO TEST SCROLL; SCROLL DOES NOT WORK ON DISPLAY:NONE ELEMENTS.
-var hide = _getId("hide");
-var scrollTop = _getId("test_scroll");
-var scrollToHere = _getId("test_scrollTo");
-var styleBtn = _getId("styleBtn");
-var counter = _getId("counter");
-var activateCounter = _getId("activate_counter");
+var show = _getElById("show");
+var test = _getElById("test"); // NOT USE THIS TO TEST SCROLL; SCROLL DOES NOT WORK ON DISPLAY:NONE ELEMENTS.
+var hide = _getElById("hide");
+var scrollTop = _getElById("test_scroll");
+var scrollToHere = _getElById("test_scrollTo");
+var styleBtn = _getElById("styleBtn");
+var counter = _getElById("counter");
+var activateCounter = _getElById("activate_counter");
 
 show.onclick = function() {
     _fadeIn(test, 2000);

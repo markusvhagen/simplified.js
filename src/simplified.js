@@ -16,43 +16,80 @@ let linearSpeed = {
     fast: 200,
     decideSpeed: function (stringInput) {
         if (stringInput === undefined) {
-            return (this.default);
+            return this.default;
         }
         // Only return if number is not integer.
         else if (!Number.isInteger(stringInput)) {
             if (stringInput == "slow") {
-                return (this.slow);
+                return this.slow;
             }
             else if (stringInput == "fast") {
-                return (this.fast);
+                return this.fast;
             }
         }
         else {
-            return (stringInput);
+            return stringInput;
         }
     }
 };
 
+let validation = {
+
+    validateSingleArgument: function (argument, parameterType) {
+        if (typeof(argument) === parameterType) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+
+    validateMultipleArguments: function() {
+        // Arguments is an object which is in JS natively.
+        let numberOfArguments = arguments.length;
+        let validationSuccess = true;
+
+        // Only proceed if numberOfArguments is even, meaning that every argument for input-argument
+        // has a corresponding argument for which type this argument should be.
+        if (numberOfArguments % 2 == 0) {
+            for (var i = 0; i <= ((numberOfArguments/2)-1); i++) {
+                let currentCorrespondingArgument = arguments[(numberOfArguments/2)+i];
+                if (!(typeof arguments[i] == currentCorrespondingArgument)) {
+                    validationSuccess = false;
+                    break;
+                }
+            }
+        }
+
+        else {
+            return false;
+        }
+        return validationSuccess ? true : false;
+    }
+
+};
+
 /* ==== SELECTORS ==== */
 
-// For divs only
-function _getId(el) {
-    return (document.getElementById(el));
-}
-
-// For all elements; class, div, name etc.
-function _getElements(el) {
-    return (document.querySelector(el));
+// Argument must be id of element
+function _getElById(id) {
+    if (validation.validateSingleArgument(id, "string")) {
+        return document.getElementById(id);
+    }
 }
 
 /* ==== METHODS & EVENTS ==== */
 
 function _getContent(el) {
-    return el.innerHTML;
+    if (validation.validateSingleArgument(el, "object")) {
+        return el.innerHTML;
+    }
 }
 
 function _setContent(el, content) {
-    el.innerHTML = content;
+    if (validation.validateMultipleArguments(el, content, "object", "string")) {
+        el.innerHTML = content;
+    }
 }
 
 function _show(el) {
