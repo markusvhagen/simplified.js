@@ -45,153 +45,162 @@ function _getElements(el) {
     return (document.querySelector(el));
 }
 
-/* TESTING FOR OTHER NOTATION, e.g.; _(#id).getContent();
-function _(selector){
-	var self = {};
-	self.selector = selector;
-	self.element = document.querySelector(self.selector);
+/* ==== METHODS & EVENTS ==== */
 
-    self.getContent = function() {
-        return self.element.innerHTML;
-    }
-    return self;
+function _getContent(el) {
+    return el.innerHTML;
 }
-*/
 
-    /* ==== METHODS & EVENTS ==== */
+function _setContent(el, content) {
+    el.innerHTML = content;
+}
 
-    function _getContent(el) {
-        return el.innerHTML;
+function _show(el) {
+    if (el.style.display == "block") {
+    return false;
     }
-
-    function _setContent(el, content) {
-        el.innerHTML = content;
+    else {
+        el.style.display = "block";
     }
+}
 
-    function _show(el) {
-        if (el.style.display == "block") {
-            return false;
-        }
-        else {
-            el.style.display = "block";
-        }
+function _hide(el) {
+    if (el.style.display == "none") {
+        return false;
     }
+    else {
+        el.style.display = "none";
+    }
+}
 
-    function _hide(el) {
-        if (el.style.display == "none") {
-            return false;
+function _getCSSValue(el, property) {
+    let propVal = window.getComputedStyle(el).getPropertyValue(property);
+    return propVal;
+}
+
+function _setCSSValue(el, property, val) {
+    el.style[property] = val;  // Does not work when trying to access with el.style.property. Therefore el.style[property].
+}
+
+function _fadeIn(el, timeInput) {
+    let time = linearSpeed.decideSpeed(timeInput);
+    let loopRounds = Math.ceil(time/16);
+    let elOpacity = 0;
+    let numberLoopRoundsNow = 1;
+    el.style.opacity = elOpacity;
+    el.style.display = "block";
+    var fadeInInterval = setInterval(function() {
+        if (numberLoopRoundsNow >= loopRounds) {
+            clearInterval(fadeInInterval);
         }
-        else {
+        el.style.opacity = numberLoopRoundsNow/loopRounds;
+        numberLoopRoundsNow++;
+    }, 16);
+}
+
+function _fadeOut(el, timeInput) {
+    let time = linearSpeed.decideSpeed(timeInput);
+    let loopRoundsTotal = Math.ceil(time/16);
+    let elOpacity = 1;
+    let loopRoundsNow = Math.ceil(time/16);
+    el.style.opacity = 1;
+    var fadeOutInterval = setInterval(function() {
+        if (loopRoundsNow <= 0) {
+            clearInterval(fadeOutInterval);
             el.style.display = "none";
         }
-    }
+        el.style.opacity = loopRoundsNow/loopRoundsTotal;
+        loopRoundsNow--;
+    }, 16);
+}
 
-    function _getCSSValue(el, property) {
-        let propVal = window.getComputedStyle(el).getPropertyValue(property);
-        return propVal;
+function _scrollToTop(timeInput) {
+    let time = linearSpeed.decideSpeed(timeInput);
+    let scrollPos = window.scrollY;
+    if (scrollPos == 0) {
+        return true;
     }
-
-    function _setCSSValue(el, property, val) {
-        el.style[property] = val;  // Does not work when trying to access with el.style.property. Therefore el.style[property].
-    }
-
-    function _fadeIn(el, timeInput) {
-        let time = linearSpeed.decideSpeed(timeInput);
-        let loopRounds = Math.ceil(time/16);
-        let elOpacity = 0;
-        let numberLoopRoundsNow = 1;
-        el.style.opacity = elOpacity;
-        el.style.display = "block";
-        var fadeInInterval = setInterval(function() {
-            if (numberLoopRoundsNow >= loopRounds) {
-                clearInterval(fadeInInterval);
-            }
-            el.style.opacity = numberLoopRoundsNow/loopRounds;
-            numberLoopRoundsNow++;
-        }, 16);
-    }
-
-    function _fadeOut(el, timeInput) {
-        let time = linearSpeed.decideSpeed(timeInput);
+    else {
         let loopRoundsTotal = Math.ceil(time/16);
-        let elOpacity = 1;
-        let loopRoundsNow = Math.ceil(time/16);
-        el.style.opacity = 1;
-        var fadeOutInterval = setInterval(function() {
-            if (loopRoundsNow <= 0) {
-                clearInterval(fadeOutInterval);
-                el.style.display = "none";
-            }
-            el.style.opacity = loopRoundsNow/loopRoundsTotal;
-            loopRoundsNow--;
-        }, 16);
-    }
-
-    function _scrollToTop(timeInput) {
-        let time = linearSpeed.decideSpeed(timeInput);
-        let scrollPos = window.scrollY;
-        if (scrollPos == 0) {
-            return true;
-        }
-        else {
-            let loopRoundsTotal = Math.ceil(time/16);
-            let pixelMovePerLoop = Math.ceil(scrollPos/loopRoundsTotal);
-            let loopRoundsNow = 0;
-            var scrollTopInterval = setInterval(function() {
-                if (document.body.scrollTop === 0) {
-                    clearInterval(scrollTopInterval);
-                }
-                scrollPos -= pixelMovePerLoop;
-                window.scrollTo(0, scrollPos);
-                loopRoundsNow++;
-            }, 16);
-        }
-    }
-
-    // TODO: Seems like there is a little offset to the top sometimes. Why? Is there a fix?
-    function _scrollTo(el, timeInput) {
-        let time = linearSpeed.decideSpeed(timeInput);
-        let scrollPos = window.scrollY;
-        let scrollToPos = el.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
-        let loopRoundsTotal = Math.ceil(time/16);
+        let pixelMovePerLoop = Math.ceil(scrollPos/loopRoundsTotal);
         let loopRoundsNow = 0;
-        // If element has a lower Y-coordinate then starting scroll position.
-        if (scrollPos > scrollToPos) {
-            let pixelMovePerLoop = Math.abs(Math.ceil((scrollPos - scrollToPos)/loopRoundsTotal));
-            var scrollToElementInterval = setInterval(function() {
-                if (loopRoundsNow >= loopRoundsTotal) {
-                    clearInterval(scrollToElementInterval);
-                }
-                scrollPos -= pixelMovePerLoop;
-                window.scrollTo(0, scrollPos);
-                loopRoundsNow++;
-            }, 16);
-        }
-        // If element has a higher Y-coordinate then starting scroll position.
-        else if (scrollPos < scrollToPos) {
-            let pixelMovePerLoop = Math.abs(Math.ceil((scrollPos - scrollToPos)/loopRoundsTotal));
-            var scrollToElementInterval = setInterval(function() {
-                if (loopRoundsNow >= loopRoundsTotal) {
-                    clearInterval(scrollToElementInterval);
-                }
-                scrollPos += pixelMovePerLoop;
-                window.scrollTo(0, scrollPos);
-                loopRoundsNow++;
-            }, 16);
-        }
+        var scrollTopInterval = setInterval(function() {
+            if (document.body.scrollTop === 0) {
+                clearInterval(scrollTopInterval);
+            }
+            scrollPos -= pixelMovePerLoop;
+            window.scrollTo(0, scrollPos);
+            loopRoundsNow++;
+        }, 16);
+    }
+}
+
+// TODO: Seems like there is a little offset to the top sometimes. Why? Is there a fix?
+function _scrollTo(el, timeInput) {
+    let time = linearSpeed.decideSpeed(timeInput);
+    let scrollPos = window.scrollY;
+    let scrollToPos = el.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
+    let loopRoundsTotal = Math.ceil(time/16);
+    let loopRoundsNow = 0;
+    // If element has a lower Y-coordinate then starting scroll position.
+    if (scrollPos > scrollToPos) {
+        let pixelMovePerLoop = Math.abs(Math.ceil((scrollPos - scrollToPos)/loopRoundsTotal));
+        var scrollToElementInterval = setInterval(function() {
+            if (loopRoundsNow >= loopRoundsTotal) {
+                clearInterval(scrollToElementInterval);
+            }
+            scrollPos -= pixelMovePerLoop;
+            window.scrollTo(0, scrollPos);
+            loopRoundsNow++;
+        }, 16);
+    }
+    // If element has a higher Y-coordinate then starting scroll position.
+    else if (scrollPos < scrollToPos) {
+        let pixelMovePerLoop = Math.abs(Math.ceil((scrollPos - scrollToPos)/loopRoundsTotal));
+        var scrollToElementInterval = setInterval(function() {
+            if (loopRoundsNow >= loopRoundsTotal) {
+                clearInterval(scrollToElementInterval);
+            }
+            scrollPos += pixelMovePerLoop;
+            window.scrollTo(0, scrollPos);
+            loopRoundsNow++;
+        }, 16);
+    }
+}
+
+function _dynamicIntegerCounter(el, start, stop, timeInput) {
+	let time = linearSpeed.decideSpeed(timeInput);
+	let difference = stop - start;
+	let msPerStep = time / difference;
+	let i = 0;
+
+	var counterInterval = setInterval(function () {
+		if (i == stop) {
+			clearInterval(counterInterval);
+		}
+        _setContent(el, i);
+		i++;
+	}, msPerStep);
+}
+
+function _onClickOutsideOfElement(el, func) {
+    // If func-parameter is not function, then terminate.
+    if (!typeof func == "function") {
+        return(false);
     }
 
-    function _dynamicCounter(el, start, stop, timeInput) {
-    	let time = linearSpeed.decideSpeed(timeInput);
-    	let difference = stop - start;
-    	let msPerStep = time / difference;
-    	let i = 0;
+    window.addEventListener("click", function() {
+        let eventTarget = event.target;
 
-    	var counterInterval = setInterval(function () {
-    		if (i == stop) {
-    			clearInterval(counterInterval);
-    		}
-            _setContent(el, i);
-    		i++;
-    	}, msPerStep);
-    }
+        if (!eventTarget == el) {
+            console.log("Du trykte på utsiden av elementet.");
+            func();
+        }
+
+        else {
+            console.log("Du trykte på elementet");
+        }
+
+    });
+
+}

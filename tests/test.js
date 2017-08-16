@@ -25,5 +25,11 @@ styleBtn.onclick = function() {
 }
 
 activateCounter.onclick = function() {
-    _dynamicCounter(counter, 0, 50, "slow");
+    _dynamicIntegerCounter(counter, 0, 50, "slow");
 }
+
+function doThis() {
+    console.log("jaja");
+}
+
+_onClickOutsideOfElement(styleBtn, doThis());
