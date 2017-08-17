@@ -26,8 +26,7 @@ In other words, you may pass an argument for time in the following ways:
 ## Validating arguments with simplified.js
 Simplified.js uses the object validation for validating function arguments. The validation-object has two functions; `validateSingleArgument` and `validateMultipleArguments`. The object was originally made to validate arguments passed to simplified.js-function, but you can also use it. It works as follows;
 
-```
-javascript
+```javascript
 function myFunc(arg1, arg2) {
     if(validate.validateMultipleArguments(arg1, arg2, "string", "number")) {
         console.log("I will only print if arg1 is a string and arg2 is a number");
