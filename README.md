@@ -1,5 +1,5 @@
 # simplified.js
-A javascript library which aims to simplify some javascript functions. In the long run, it also aims to be a reference for javascript developers, which want to learn typical JS-tasks the native way, instead of using frameworks like jQuery. The source code is all one file, which makes it easy to search up a function, and see how that specific function works under the hood. Most of all, this project was started for my own learning sake, and because I wanted to learn how frameworks like jQuery works under the hood.
+A javascript library which aims to simplify some javascript functions. In the long run, it also aims to be a reference for javascript developers, which want to learn typical JS-tasks the native way, instead of using frameworks like jQuery. The source code is all one file, which makes it easy to search up a function, and see how that specific function works under the hood. Most of all, this project was started for my own learning sake.
 
 ## Installation
 It is important that you important simplified.js before importing your own script.
