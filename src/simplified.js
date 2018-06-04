@@ -176,14 +176,14 @@ function _scrollToTop(timeInput) {
 function _scrollTo(el, timeInput) {
     let time = linearSpeed.decideSpeed(timeInput);
     let scrollPos = window.scrollY;
-    let scrollToPos = el.getBoundingClientRect().top - document.body.getBoundingClientRect().top;
+    let scrollToPos = el.getBoundingClientRect().y - document.body.getBoundingClientRect().y;
     let loopRoundsTotal = Math.ceil(time/16);
     let loopRoundsNow = 0;
     // If element has a lower Y-coordinate then starting scroll position.
     if (scrollPos > scrollToPos) {
         let pixelMovePerLoop = Math.abs(Math.ceil((scrollPos - scrollToPos)/loopRoundsTotal));
         var scrollToElementInterval = setInterval(function() {
-            if (loopRoundsNow >= loopRoundsTotal) {
+            if (window.scrollY <= scrollToPos) {
                 clearInterval(scrollToElementInterval);
             }
             scrollPos -= pixelMovePerLoop;
@@ -195,7 +195,7 @@ function _scrollTo(el, timeInput) {
     else if (scrollPos < scrollToPos) {
         let pixelMovePerLoop = Math.abs(Math.ceil((scrollPos - scrollToPos)/loopRoundsTotal));
         var scrollToElementInterval = setInterval(function() {
-            if (loopRoundsNow >= loopRoundsTotal) {
+            if (window.scrollY >= scrollToPos) {
                 clearInterval(scrollToElementInterval);
             }
             scrollPos += pixelMovePerLoop;

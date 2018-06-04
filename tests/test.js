@@ -6,6 +6,8 @@ var scrollToHere = _getElById("test_scrollTo");
 var styleBtn = _getElById("styleBtn");
 var counter = _getElById("counter");
 var activateCounter = _getElById("activate_counter");
+var scrollDown = _getElById("test_scrollDown");
+var scrollDownToHere = _getElById("test_scrollDownTo");
 
 show.onclick = function() {
     _fadeIn(test, 2000);
@@ -28,8 +30,6 @@ activateCounter.onclick = function() {
     _dynamicIntegerCounter(counter, 0, 50, "slow");
 }
 
-function doThis() {
-    console.log("jaja");
+scrollDown.onclick = function() {
+    _scrollTo(scrollDownToHere, 2000);
 }
-
-_onClickOutsideOfElement(styleBtn, doThis());

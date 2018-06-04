@@ -5,6 +5,12 @@
         <title>Testing testing</title>
 
         <style>
+            * {
+              margin: 0;
+              padding: 0;
+              border: 0;
+            }
+
             body {
                 height: 3000px;
             }
@@ -31,6 +37,11 @@
                 margin-top: 500px;
             }
 
+            #test_scrollDownTo {
+              margin-top: 2000px;
+              height: 100vh;
+            }
+
         </style>
 
     </head>
@@ -47,6 +58,8 @@
         <p id="activate_counter">Click on me to activate the counter</p>
         <p id="test_scrollTo">You have now arrived to this paragraph</p>
         <p id="test_scroll">Scroll to the test_scrollTo paragraph</p>
+        <p id="test_scrollDown">Scroll down to the test_scrollToDown paragraph</p>
+        <p id="test_scrollDownTo">You have now arrived to this paragraph</p>
 
         <script src="../src/simplified.js"></script>
         <script src="test.js"></script>
