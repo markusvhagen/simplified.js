@@ -1,5 +1,5 @@
 # simplified.js
-A javascript library which aims to simplify some javascript functions.
+A javascript library which aims to simplify some javascript functions. In the long run, it also aims to be a reference for javascript developers, which want to learn typical JS-tasks the native way, instead of using frameworks like jQuery. The source code is all one file, which makes it easy to search up a function, and see how that specific function works under the hood. Most of all, this project was started for my own learning sake, and because I wanted to learn how frameworks like jQuery works under the hood.
 
 ## Installation
 It is important that you important simplified.js before importing your own script.
@@ -47,6 +47,9 @@ Scrolls smoothly to a given element in given time. Takes an object as the first 
 
 ### `_dynamicIntegerCounter(el, start, stop, timeInput)`
 Will make an animation for a given element of couting from a given number (`start`) to a given number (`stop`) in a given time. Takes object as the first argument, and a number as the second, third and fourth argument. You can read more about the `timeInput`-argument in the chapter [Timing with simplified.js](#timing-with-simplified.js).
+
+### `_indexOf(inArray, searchFor)`
+Given a sorted array, it will return the index of `searchFor`. If `searchFor` is not in the array, it will return `undefined`. Does not worked with mixed arrays, just arrays only existing of numbers or only existing of strings. Takes an array as first argument, and string or number as the second argument. Under the hood, `_indexOf` will do a binary search, which is faster than native JS (`array.indexOf()`), because it searches linearly.
 
 ## Timing with simplified.js
 Functions that can be timed has parameters for it, meaning that you can pass arguments regarding the timing of a function. For now, simplified.js only support linear timing, meaning the same speed of the animation in all phases. Timing is passed as an argument in milliseconds. If no argument is passed, the timing will be set to `default`, which is `400ms`.
