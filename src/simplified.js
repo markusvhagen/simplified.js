@@ -189,8 +189,6 @@ function _scrollTo(el, timeInput) {
         let time = linearSpeed.decideSpeed(timeInput);
         let scrollPos = window.scrollY;
         let scrollToPos = el.getBoundingClientRect().y - document.body.getBoundingClientRect().y;
-        let loopRoundsTotal = Math.ceil(time/16);
-        let loopRoundsNow = 0;
         // If element has a lower Y-coordinate then starting scroll position.
         if (scrollPos > scrollToPos) {
             let pixelMovePerLoop = Math.abs(Math.ceil((scrollPos - scrollToPos)/loopRoundsTotal));
@@ -200,7 +198,6 @@ function _scrollTo(el, timeInput) {
                 }
                 scrollPos -= pixelMovePerLoop;
                 window.scrollTo(0, scrollPos);
-                loopRoundsNow++;
             }, 16);
         }
         // If element has a higher Y-coordinate then starting scroll position.
@@ -212,7 +209,6 @@ function _scrollTo(el, timeInput) {
                 }
                 scrollPos += pixelMovePerLoop;
                 window.scrollTo(0, scrollPos);
-                loopRoundsNow++;
             }, 16);
         }
     }
