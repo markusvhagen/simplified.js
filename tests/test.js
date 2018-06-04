@@ -27,7 +27,7 @@ styleBtn.onclick = function() {
 }
 
 activateCounter.onclick = function() {
-    _dynamicIntegerCounter(counter, 0, 50, "slow");
+    _dynamicIntegerCounter(counter, 0, 1000, "fast");
 }
 
 scrollDown.onclick = function() {
