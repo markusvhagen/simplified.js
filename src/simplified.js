@@ -189,6 +189,7 @@ function _scrollTo(el, timeInput) {
         let time = linearSpeed.decideSpeed(timeInput);
         let scrollPos = window.scrollY;
         let scrollToPos = el.getBoundingClientRect().y - document.body.getBoundingClientRect().y;
+        let loopRoundsTotal = Math.ceil(time/16);
         // If element has a lower Y-coordinate then starting scroll position.
         if (scrollPos > scrollToPos) {
             let pixelMovePerLoop = Math.abs(Math.ceil((scrollPos - scrollToPos)/loopRoundsTotal));
