@@ -10,7 +10,7 @@ overwriting any other functions in another file */
 
 /* === OBJECTS === */
 
-let linearSpeed = {
+let _linearSpeed = {
     default: 400,
     slow: 800,
     fast: 200,
@@ -33,8 +33,7 @@ let linearSpeed = {
     }
 };
 
-let validation = {
-
+let _validation = {
     validateSingleArgument: function (argument, parameterType) {
         if (typeof(argument) === parameterType) {
             return true;
@@ -73,7 +72,7 @@ let validation = {
 
 // Argument must be id of element
 function _getElById(id) {
-    if (validation.validateSingleArgument(id, "string")) {
+    if (_validation.validateSingleArgument(id, "string")) {
         return document.getElementById(id);
     }
 }
@@ -81,19 +80,19 @@ function _getElById(id) {
 /* ==== METHODS & EVENTS ==== */
 
 function _getContent(el) {
-    if (validation.validateSingleArgument(el, "object")) {
+    if (_validation.validateSingleArgument(el, "object")) {
         return el.innerHTML;
     }
 }
 
 function _setContent(el, content) {
-    if (validation.validateMultipleArguments(el, content, "object", "string")) {
+    if (_validation.validateMultipleArguments(el, content, "object", "string")) {
         el.innerHTML = content;
     }
 }
 
 function _show(el) {
-    if (validation.validateSingleArgument(el, "object")) {
+    if (_validation.validateSingleArgument(el, "object")) {
         if (el.style.display == "block") {
             return false;
         }
@@ -104,7 +103,7 @@ function _show(el) {
 }
 
 function _hide(el) {
-    if (validation.validateSingleArgument(el, "object")) {
+    if (_validation.validateSingleArgument(el, "object")) {
         if (el.style.display == "none") {
             return false;
         }
@@ -115,21 +114,21 @@ function _hide(el) {
 }
 
 function _getCSSValue(el, property) {
-    if (validation.validateMultipleArguments(el, property, "object", "string")) {
+    if (_validation.validateMultipleArguments(el, property, "object", "string")) {
         let propVal = window.getComputedStyle(el).getPropertyValue(property);
         return propVal;
     }
 }
 
 function _setCSSValue(el, property, val) {
-    if (validation.validateMultipleArguments(el, property, val, "object", "string", "string")) {
+    if (_validation.validateMultipleArguments(el, property, val, "object", "string", "string")) {
         el.style[property] = val;  // Does not work when trying to access with el.style.property. Therefore el.style[property].
     }
 }
 
 function _fadeIn(el, timeInput) {
-    if (validation.validateMultipleArguments(el, "object")) {
-        let time = linearSpeed.decideSpeed(timeInput);
+    if (_validation.validateMultipleArguments(el, "object")) {
+        let time = _linearSpeed.decideSpeed(timeInput);
         let loopRounds = Math.ceil(time/16);
         let elOpacity = 0;
         let numberLoopRoundsNow = 1;
@@ -146,8 +145,8 @@ function _fadeIn(el, timeInput) {
 }
 
 function _fadeOut(el, timeInput) {
-    if (validation.validateMultipleArguments(el, "object")) {
-        let time = linearSpeed.decideSpeed(timeInput);
+    if (_validation.validateMultipleArguments(el, "object")) {
+        let time = _linearSpeed.decideSpeed(timeInput);
         let loopRoundsTotal = Math.ceil(time/16);
         let elOpacity = 1;
         let loopRoundsNow = Math.ceil(time/16);
@@ -164,7 +163,7 @@ function _fadeOut(el, timeInput) {
 }
 
 function _scrollToTop(timeInput) {
-    let time = linearSpeed.decideSpeed(timeInput);
+    let time = _linearSpeed.decideSpeed(timeInput);
     let scrollPos = window.scrollY;
     if (scrollPos == 0) {
         return true;
@@ -185,8 +184,8 @@ function _scrollToTop(timeInput) {
 }
 
 function _scrollTo(el, timeInput) {
-    if (validation.validateMultipleArguments(el, "object")) {
-        let time = linearSpeed.decideSpeed(timeInput);
+    if (_validation.validateMultipleArguments(el, "object")) {
+        let time = _linearSpeed.decideSpeed(timeInput);
         let scrollPos = window.scrollY;
         let scrollToPos = el.getBoundingClientRect().y - document.body.getBoundingClientRect().y;
         let loopRoundsTotal = Math.ceil(time/16);
@@ -216,8 +215,8 @@ function _scrollTo(el, timeInput) {
 }
 
 function _dynamicIntegerCounter(el, start, stop, timeInput) {
-    if (validation.validateMultipleArguments(el, start, stop, "object", "number", "number")) {
-        let time = linearSpeed.decideSpeed(timeInput);
+    if (_validation.validateMultipleArguments(el, start, stop, "object", "number", "number")) {
+        let time = _linearSpeed.decideSpeed(timeInput);
         let difference = stop - start;
         let msPerStep = time / difference;
         let i = 0;
@@ -229,5 +228,56 @@ function _dynamicIntegerCounter(el, start, stop, timeInput) {
             el.innerHTML = i;
             i++;
         }, msPerStep);
+    }
+}
+
+// Does NOT accept mixed arrays, just numbers or just strings
+function _indexOf(inArray, searchFor) {
+    if (typeof inArray[0] == "number") {
+        var minIndex = 0;
+        var maxIndex = inArray.length - 1;
+        var midIndex;
+
+        while (maxIndex >= minIndex) {
+            midIndex = Math.floor((minIndex+maxIndex)/2);
+
+            if (searchFor < inArray[midIndex]) {
+                maxIndex = midIndex - 1;
+            }
+            else if (searchFor > inArray[midIndex]) {
+                minIndex = midIndex + 1;
+            }
+            else if (searchFor == inArray[midIndex]) {
+                return midIndex;
+            }
+            else {
+                return undefined;
+            }
+        }
+    }
+
+    else if (typeof inArray[0] == "string") {
+        var minIndex = 0;
+        var maxIndex = inArray.length - 1;
+        var midIndex;
+
+        while (maxIndex >= minIndex) {
+            midIndex = Math.floor((minIndex+maxIndex)/2);
+
+            // If searchFor has a lower index
+            if (searchFor.localeCompare(inArray[midIndex]) == -1) {
+                maxIndex = midIndex - 1;
+            }
+            // If searchFor has a higher index
+            else if (searchFor.localeCompare(inArray[midIndex]) == 1) {
+                minIndex = midIndex + 1;
+            }
+            else if (searchFor.localeCompare(inArray[midIndex]) == 0) {
+                return midIndex;
+            }
+            else {
+                return undefined;
+            }
+        }
     }
 }

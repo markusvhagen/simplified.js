@@ -33,3 +33,8 @@ activateCounter.onclick = function() {
 scrollDown.onclick = function() {
     _scrollTo(scrollDownToHere, 2000);
 }
+
+window.onload = function() {
+    console.log(_indexOf([3,4,5,6,7,8], 4));
+    console.log(_indexOf(["a", "ab", "cd3", "de3", "es1"], "es1"));
+}
