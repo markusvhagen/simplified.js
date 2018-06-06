@@ -4,7 +4,7 @@ A javascript library which aims to simplify some javascript functions. In the lo
 ## Installation
 It is important that you important simplified.js before importing your own script.
 ```
-<script src="https://raw.githubusercontent.com/markusvhagen/simplified.js/master/src/simplified.js"></script>
+<script src="https://cdn.rawgit.com/markusvhagen/simplified.js/master/src/simplified.js"></script>
 <script src="myScript.js"></script>
 ```
 If you want, you can also download the code itself by going to [the raw source code](https://raw.githubusercontent.com/markusvhagen/simplified.js/master/src/simplified.js) and clicking `CTRL + S`.
