@@ -13,7 +13,7 @@ overwriting any other functions in another file */
 let _linearSpeed = {
     default: 400,
     slow: 800,
-    fast: 200,
+    fast: 208,
     decideSpeed: function (stringInput) {
         if (stringInput === undefined) {
             return this.default;

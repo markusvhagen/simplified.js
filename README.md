@@ -52,8 +52,8 @@ Will make an animation for a given element of couting from a given number (`star
 Functions that can be timed has parameters for it, meaning that you can pass arguments regarding the timing of a function. For now, simplified.js only support linear timing, meaning the same speed of the animation in all phases. Timing is passed as an argument in milliseconds. If no argument is passed, the timing will be set to `default`, which is `400ms`.
 
 In other words, you may pass an argument for time in the following ways:
-* As an integer with milliseconds.
-* As either `"slow"` (800 ms) or  `"fast"` (200 ms).  
+* As an integer with milliseconds. Should be a multiple of 16 to make it work correctly.
+* As either `"slow"` (800 ms) or  `"fast"` (208 ms).  
 * Passing no argument, and setting the speed to default.
 
 ## Validating arguments with simplified.js
